@@ -130,6 +130,9 @@ export default class AgendaView extends Component {
   componentDidMount() {
     this._isMounted = true;
     this.loadReservations(this.props);
+    setTimeout(() => {
+      this.calendar.scrollToDay(this.state.selectedDay.clone(), this.calendarOffset(), false);
+    }, 500)
   }
 
   componentWillUnmount() {
@@ -358,7 +361,6 @@ export default class AgendaView extends Component {
   }
 
   render() {
-    console.log(this.props.onScrollEndDrag);
 
     const agendaHeight = this.initialScrollPadPosition();
     const weekDaysNames = dateutils.weekDayNames(this.props.firstDay);
@@ -456,9 +458,6 @@ export default class AgendaView extends Component {
         <Animated.View style={headerStyle}>
           <Animated.View style={{flex: 1, transform: [{translateY: contentTranslate}]}}>
             <CalendarList
-              onLayout={() => {
-                this.calendar.scrollToDay(this.state.selectedDay.clone(), this.calendarOffset(), false);
-              }}
               calendarWidth={this.viewWidth}
               theme={this.props.theme}
               onVisibleMonthsChange={this.onVisibleMonthsChange.bind(this)}
