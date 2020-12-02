@@ -439,6 +439,10 @@ export default class AgendaView extends Component {
     );
 
     const shouldHideExtraDays = this.state.calendarScrollable ? this.props.hideExtraDays : false;
+
+    setTimeout(() => {
+      this.calendar.scrollToDay(this.state.selectedDay.clone(), this.calendarOffset(), false);
+    }, 500)
     return (
       <View
         testID={this.props.testID}
